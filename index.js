@@ -22,20 +22,22 @@ function Parser(obj) {
 		// I'm already doing this in tpl. Do I need this? Just push for {% %} match? 
 		// If so, here? Or add to tpl module?
 		items.push(raw(my_obj.slice(0, match.index)));
-		// this is the item I'm validating my 'if' statement. OR heading into the 'item in items' for for-loop
-		my_obj = my_obj.slice(match.index + match[0].length);
+		// this is the item I'm validating my 'if' statement OR pointing it to tpl_for 
+		my_obj = my_obj.slice(match.index + match[0].length); // last item, is this necessary here?
 	}     
 	items.push(raw(my_obj));
 	// should block tags that are 'matched' be executed/linked to their individual modules in renderedString?
 	return function renderedString(context) {
-		var results = [];
+		var results = []
+			, contents = match.slice(1);
+
 		for (i = 0; i < items.length; ++i) {
 			var item = items[i];
-			if (match[0] === "if" | "else" | "for") {
-			// call if_else or tpl_for module?
+			if (item === "if" | "else") {
+				if_else(parser, contents)  //call if_else module?
 			}	
-			else {
-				// throw error? What action do I want otherwise? It should be an invalid entry no match.
+			if (item === "for") {
+				for_tpl(parser, contents)  // call tpl_for?
 			}
 			results.push(item(context));
 		}
