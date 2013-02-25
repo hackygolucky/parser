@@ -33,7 +33,7 @@ function Parser(obj) {
 
 		for (i = 0; i < items.length; ++i) {
 			var item = items[i];
-			if (item === "if" | "else") {
+			if (item === "if" || "else") {
 				if_else(parser, contents)  //call if_else module?
 			}	
 			if (item === "for") {
