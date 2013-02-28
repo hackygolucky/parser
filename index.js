@@ -14,7 +14,7 @@ function Parser(obj) {
 
 	while (match = regex.exec(my_obj)) {
 		items.push(raw(my_obj.slice(0, match.index))); // "if athlete_list"
-		my_obj = my_obj.slice(match.index + match[0].length); // this is full match "{% if athlete_list %}"
+		my_obj = my_obj.slice(match.index + match[0].length); // "{% if athlete_list %}"
 	}     
 	items.push(raw(my_obj))
 	
